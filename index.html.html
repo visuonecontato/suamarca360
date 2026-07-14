@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tours virtuais 360° para escolas e instituições de ensino. Apresente sua estrutura, fortaleça a confiança das famílias e modernize o processo de matrícula." />
+  <title>SuaMarca 360 | Tours virtuais para instituições de ensino</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.css" />
+
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --surface: #ffffff;
+      --surface-soft: #edf4f5;
+      --text: #132327;
+      --muted: #5e7074;
+      --primary: #0f766e;
+      --primary-dark: #0a5a54;
+      --primary-soft: #d8efec;
+      --accent: #e8a838;
+      --border: #dfe7e9;
+      --danger-soft: #fff1ee;
+      --shadow: 0 18px 50px rgba(20, 44, 48, 0.10);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 96px 0;
+    }
+
+    .section-tight {
+      padding: 72px 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--primary-dark);
+      background: var(--primary-soft);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 42px;
+    }
+
+    .section-heading h2 {
+      margin-top: 14px;
+      font-size: clamp(2rem, 4vw, 3.65rem);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+    }
+
+    .section-heading p {
+      margin-top: 18px;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 20px;
+      border-radius: 14px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: white;
+      background: var(--primary);
+      box-shadow: 0 10px 28px rgba(15, 118, 110, 0.22);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: white;
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: #b9c8cb;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(246, 248, 251, 0.86);
+      border-bottom: 1px solid rgba(223, 231, 233, 0.75);
+    }
+
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 1.05rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      background: linear-gradient(145deg, var(--primary), #20a79b);
+      box-shadow: 0 8px 20px rgba(15, 118, 110, 0.25);
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: #3d5054;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: white;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 72px 0 88px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 540px;
+      height: 540px;
+      right: -180px;
+      top: -120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(32, 167, 155, 0.22), transparent 68%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.04fr .96fr;
+      align-items: center;
+      gap: 56px;
+    }
+
+    .hero h1 {
+      margin-top: 18px;
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      line-height: .91;
+      letter-spacing: -0.07em;
+      max-width: 760px;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero-copy {
+      margin-top: 24px;
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 1.16rem;
+    }
+
+    .hero-actions {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-proof {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 26px;
+      color: #465b60;
+      font-size: .91rem;
+      font-weight: 700;
+    }
+
+    .hero-proof span::before {
+      content: "✓";
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      margin-right: 7px;
+      border-radius: 50%;
+      color: var(--primary);
+      background: var(--primary-soft);
+      font-weight: 900;
+    }
+
+    .tour-card {
+      position: relative;
+      min-height: 560px;
+      border-radius: 32px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(10, 30, 34, 0.06), rgba(10, 30, 34, 0.38)),
+        radial-gradient(circle at 50% 38%, rgba(255,255,255,.9) 0 3%, transparent 4%),
+        linear-gradient(145deg, #a5c7c1 0%, #e9efe9 38%, #c9b799 39%, #9d8665 60%, #537066 61%, #38524d 100%);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .tour-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, transparent 49.6%, rgba(255,255,255,.22) 50%, transparent 50.4%),
+        linear-gradient(0deg, transparent 57%, rgba(255,255,255,.14) 57.4%, transparent 58%);
+      opacity: .6;
+      pointer-events: none;
+    }
+
+    .tour-topbar {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      right: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      z-index: 2;
+    }
+
+    .tour-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: white;
+      background: rgba(17, 35, 38, .74);
+      backdrop-filter: blur(10px);
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .hotspot {
+      position: absolute;
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      color: white;
+      background: var(--primary);
+      box-shadow: 0 0 0 8px rgba(255,255,255,.75), 0 10px 28px rgba(0,0,0,.22);
+      cursor: pointer;
+      font-size: 1.18rem;
+      font-weight: 900;
+      transition: transform .2s ease;
+      z-index: 3;
+    }
+
+    .hotspot:hover {
+      transform: scale(1.08);
+    }
+
+    .hotspot.one { left: 18%; top: 42%; }
+    .hotspot.two { left: 57%; top: 32%; }
+    .hotspot.three { right: 17%; bottom: 25%; }
+
+    .tour-info {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      z-index: 4;
+      padding: 18px;
+      border-radius: 20px;
+      color: white;
+      background: rgba(14, 31, 35, .83);
+      backdrop-filter: blur(14px);
+    }
+
+    .tour-info small {
+      color: #bfddd8;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .tour-info h3 {
+      margin-top: 4px;
+      font-size: 1.35rem;
+    }
+
+    .tour-info p {
+      margin-top: 5px;
+      color: #e3eeee;
+      font-size: .92rem;
+    }
+
+    .tour-controls {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tour-controls span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 34px;
+      padding: 0 10px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.12);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .problem-grid,
+    .features-grid,
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 26px;
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(32, 54, 59, 0.05);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      color: var(--primary-dark);
+      background: var(--primary-soft);
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      font-size: 1.14rem;
+      line-height: 1.3;
+    }
+
+    .card p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: .96rem;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      padding: 30px;
+      min-height: 260px;
+      border-radius: 24px;
+      background: var(--text);
+      color: white;
+      overflow: hidden;
+      counter-increment: step;
+    }
+
+    .step::after {
+      content: "0" counter(step);
+      position: absolute;
+      right: 18px;
+      bottom: -22px;
+      color: rgba(255,255,255,.07);
+      font-size: 8rem;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .step .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      color: var(--text);
+      background: var(--accent);
+      font-weight: 900;
+    }
+
+    .step h3 {
+      margin-top: 42px;
+      font-size: 1.35rem;
+    }
+
+    .step p {
+      margin-top: 10px;
+      color: #c8d5d8;
+      max-width: 310px;
+    }
+
+    .demo-section {
+      background: var(--text);
+      color: white;
+    }
+
+    .demo-section .section-heading p {
+      color: #b8c7ca;
+    }
+
+    .demo-wrap {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 24px;
+    }
+
+    .demo-viewer {
+      min-height: 520px;
+      border-radius: 26px;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.35)),
+        linear-gradient(145deg, #94b9b4 0 22%, #dce8e5 22% 42%, #dbc9a9 42% 62%, #8e765d 62% 74%, #47685f 74%);
+    }
+
+    .demo-viewer::after {
+      content: "DEMONSTRAÇÃO VISUAL DO TOUR 360°";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: rgba(255,255,255,.92);
+      font-size: clamp(1.1rem, 3vw, 2rem);
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-align: center;
+      padding: 30px;
+      text-shadow: 0 4px 24px rgba(0,0,0,.35);
+    }
+
+    .demo-viewer-badge {
+      position: absolute;
+      z-index: 3;
+      top: 18px;
+      left: 18px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.52);
+      color: white;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .demo-panel {
+      display: grid;
+      gap: 12px;
+    }
+
+    .demo-item {
+      padding: 20px;
+      border-radius: 20px;
+      background: #203438;
+      border: 1px solid #314a4f;
+    }
+
+    .demo-item strong {
+      display: block;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .demo-item p {
+      margin-top: 5px;
+      color: #a9bec2;
+      font-size: .9rem;
+    }
+
+    .benefits-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .benefit-panel {
+      padding: 34px;
+      border-radius: 28px;
+      background: white;
+      border: 1px solid var(--border);
+    }
+
+    .benefit-panel.highlight {
+      background: var(--primary);
+      color: white;
+      border-color: transparent;
+    }
+
+    .benefit-panel h3 {
+      font-size: 1.45rem;
+    }
+
+    .benefit-list {
+      margin-top: 22px;
+      display: grid;
+      gap: 14px;
+      list-style: none;
+    }
+
+    .benefit-list li {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+    }
+
+    .benefit-list li::before {
+      content: "✓";
+      flex: 0 0 24px;
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--primary-dark);
+      background: var(--primary-soft);
+      font-size: .78rem;
+      font-weight: 900;
+    }
+
+    .highlight .benefit-list li::before {
+      color: var(--primary-dark);
+      background: white;
+    }
+
+    .audiences {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .audience-pill {
+      padding: 11px 15px;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid var(--border);
+      color: #42575b;
+      font-weight: 800;
+      font-size: .9rem;
+    }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .price-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 30px;
+      border-radius: 26px;
+      background: white;
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 34px rgba(30, 52, 58, .06);
+    }
+
+    .price-card.featured {
+      background: var(--text);
+      color: white;
+      border-color: transparent;
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(17, 35, 39, .18);
+    }
+
+    .price-badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #2b2416;
+      font-size: .72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .price-card h3 {
+      font-size: 1.2rem;
+    }
+
+    .price-card .desc {
+      min-height: 48px;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .featured .desc,
+    .featured .price-features {
+      color: #b8c7ca;
+    }
+
+    .price {
+      margin-top: 24px;
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.055em;
+    }
+
+    .price small {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .featured .price small {
+      color: #9fb0b4;
+    }
+
+    .price-features {
+      display: grid;
+      gap: 11px;
+      margin: 24px 0 26px;
+      color: #52666a;
+      font-size: .92rem;
+      list-style: none;
+    }
+
+    .price-features li {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+    }
+
+    .price-features li::before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: 900;
+    }
+
+    .featured .price-features li::before {
+      color: var(--accent);
+    }
+
+    .price-card .btn {
+      margin-top: auto;
+      width: 100%;
+    }
+
+    .renewal {
+      margin-top: 20px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .faq {
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    details {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+      font-weight: 850;
+      font-size: 1.02rem;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details p {
+      margin-top: 12px;
+      max-width: 720px;
+      color: var(--muted);
+    }
+
+    .cta {
+      padding: 42px;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.18), transparent 24%),
+        var(--primary);
+      color: white;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      overflow: hidden;
+    }
+
+    .cta h2 {
+      max-width: 760px;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+    }
+
+    .cta p {
+      margin-top: 12px;
+      max-width: 650px;
+      color: #d5efec;
+    }
+
+    .cta .btn {
+      background: white;
+      color: var(--primary-dark);
+      white-space: nowrap;
+    }
+
+    footer {
+      padding: 40px 0 54px;
+    }
+
+    .footer-grid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .footer-note {
+      max-width: 580px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .demo-wrap,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-grid {
+        gap: 38px;
+      }
+
+      .problem-grid,
+      .features-grid,
+      .steps,
+      .pricing {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .tour-card {
+        min-height: 500px;
+      }
+
+      .price-card.featured {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .section {
+        padding: 72px 0;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 74px;
+        left: 16px;
+        right: 16px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 14px;
+        border-radius: 18px;
+        background: white;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 13px 10px;
+      }
+
+      .nav .btn {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: inline-grid;
+        place-items: center;
+      }
+
+      .problem-grid,
+      .features-grid,
+      .steps,
+      .pricing,
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 54px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3rem, 15vw, 5.3rem);
+      }
+
+      .tour-card,
+      .demo-viewer {
+        min-height: 430px;
+      }
+
+      .cta {
+        padding: 30px;
+      }
+
+      .footer-grid {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: min(calc(100% - 22px), var(--max));
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .card,
+      .price-card,
+      .benefit-panel {
+        padding: 22px;
+      }
+
+      .cta {
+        padding: 26px 22px;
+      }
+
+      .tour-card {
+        min-height: 470px;
+      }
+    }
+  
+    /* Reforços de responsividade para celulares, tablets, notebooks e telas grandes */
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      min-height: 100dvh;
+    }
+
+    .container,
+    .hero-grid,
+    .demo-wrap,
+    .pricing,
+    .benefits-grid,
+    .problem-grid,
+    .features-grid,
+    .steps {
+      min-width: 0;
+    }
+
+    .card,
+    .price-card,
+    .benefit-panel,
+    .step,
+    .demo-item,
+    .tour-card,
+    .demo-viewer {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .btn,
+    .menu-toggle,
+    .hotspot,
+    summary,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn,
+    .menu-toggle,
+    .hotspot {
+      touch-action: manipulation;
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .btn:hover,
+      .hotspot:hover {
+        transform: none;
+      }
+
+      .btn,
+      .menu-toggle,
+      .hotspot {
+        min-height: 44px;
+      }
+    }
+
+    @media (min-width: 1440px) {
+      :root {
+        --max: 1280px;
+      }
+
+      .hero {
+        padding-top: 88px;
+        padding-bottom: 104px;
+      }
+
+      .tour-card {
+        min-height: 620px;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .nav-links {
+        gap: 18px;
+      }
+
+      .hero-grid {
+        gap: 36px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        position: fixed;
+        top: 74px;
+        left: max(16px, env(safe-area-inset-left));
+        right: max(16px, env(safe-area-inset-right));
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 14px;
+        border-radius: 18px;
+        background: white;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 13px 10px;
+      }
+
+      .nav .btn {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: inline-grid;
+        place-items: center;
+      }
+
+      .hero-grid,
+      .demo-wrap,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .problem-grid,
+      .features-grid,
+      .steps,
+      .pricing {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .benefits-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .price-card.featured {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .section {
+        padding: 64px 0;
+      }
+
+      .section-tight {
+        padding: 56px 0;
+      }
+
+      .hero {
+        padding: 48px 0 64px;
+      }
+
+      .problem-grid,
+      .features-grid,
+      .steps,
+      .pricing,
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .tour-card,
+      .demo-viewer {
+        min-height: 420px;
+      }
+
+      .cta {
+        padding: 28px 22px;
+      }
+
+      .cta .btn {
+        width: 100%;
+      }
+
+      .footer-grid {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .container {
+        width: min(calc(100% - 20px), var(--max));
+      }
+
+      .hero h1 {
+        font-size: clamp(2.7rem, 16vw, 4.5rem);
+      }
+
+      .section-heading h2 {
+        font-size: clamp(1.9rem, 10vw, 2.7rem);
+      }
+
+      .card,
+      .price-card,
+      .benefit-panel,
+      .step {
+        padding: 20px;
+      }
+
+      .tour-card {
+        min-height: 450px;
+      }
+
+      .tour-topbar {
+        flex-wrap: wrap;
+      }
+
+      .hotspot {
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    @supports (padding: max(0px)) {
+      header,
+      main,
+      footer {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+      }
+
+      footer {
+        padding-bottom: max(54px, env(safe-area-inset-bottom));
+      }
+    }
+
+  
+    /* Visualizador 360° real */
+    #panorama {
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      border-radius: 26px;
+      overflow: hidden;
+      background: #17282c;
+    }
+
+    .panorama-shell {
+      position: relative;
+      min-width: 0;
+      min-height: 520px;
+      border-radius: 26px;
+      overflow: hidden;
+      background: #17282c;
+      box-shadow: 0 18px 46px rgba(0, 0, 0, .18);
+    }
+
+    .panorama-badge {
+      position: absolute;
+      z-index: 15;
+      top: 16px;
+      left: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: white;
+      background: rgba(10, 25, 29, .72);
+      backdrop-filter: blur(10px);
+      font-size: .78rem;
+      font-weight: 900;
+      pointer-events: none;
+    }
+
+    .panorama-help {
+      position: absolute;
+      z-index: 15;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .panorama-help span {
+      padding: 8px 10px;
+      border-radius: 10px;
+      color: white;
+      background: rgba(10, 25, 29, .72);
+      backdrop-filter: blur(10px);
+      font-size: .75rem;
+      font-weight: 800;
+    }
+
+    .pnlm-container {
+      font-family: inherit;
+    }
+
+    .pnlm-hotspot-base {
+      cursor: pointer;
+    }
+
+    .pnlm-tooltip span {
+      border-radius: 10px;
+      font-family: inherit;
+    }
+
+    @media (max-width: 680px) {
+      #panorama,
+      .panorama-shell {
+        min-height: 430px;
+      }
+
+      .panorama-badge {
+        top: 12px;
+        left: 12px;
+        font-size: .72rem;
+      }
+
+      .panorama-help {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      #panorama,
+      .panorama-shell {
+        min-height: 390px;
+      }
+
+      .panorama-help span:nth-child(3) {
+        display: none;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <!-- TROQUE "SuaMarca 360" PELO NOME DEFINITIVO QUANDO ESCOLHER -->
+      <a href="#inicio" class="brand" aria-label="Página inicial">
+        <span class="brand-mark">360°</span>
+        <span>SuaMarca 360</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#demonstracao">Demonstração</a>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#planos">Planos</a>
+        <a href="#faq">Dúvidas</a>
+      </nav>
+
+      <a class="btn btn-primary" href="#contato">Solicitar apresentação</a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Tours virtuais para educação</span>
+          <h1>Conheça antes de <span>visitar.</span></h1>
+          <p class="hero-copy">
+            Apresente sua instituição em 360° e permita que famílias conheçam ambientes,
+            diferenciais e estrutura de qualquer lugar, a qualquer hora.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#demonstracao">Ver demonstração do tour</a>
+            <a class="btn btn-secondary" href="#planos">Conhecer os planos</a>
+          </div>
+
+          <div class="hero-proof">
+            <span>Acesso pelo celular, tablet e computador</span>
+            <span>Integração com o site da escola</span>
+          </div>
+        </div>
+
+        <div class="tour-card" aria-label="Simulação visual de um tour virtual 360 graus">
+          <div class="tour-topbar">
+            <span class="tour-chip">● Ao vivo no navegador</span>
+            <span class="tour-chip">360°</span>
+          </div>
+
+          <button class="hotspot one" data-title="Recepção" data-text="Apresente o primeiro contato da família com a instituição.">+</button>
+          <button class="hotspot two" data-title="Sala de aula" data-text="Mostre estrutura, metodologia e recursos disponíveis.">+</button>
+          <button class="hotspot three" data-title="Área de convivência" data-text="Valorize espaços de integração, lazer e desenvolvimento.">+</button>
+
+          <div class="tour-info">
+            <small>Ambiente em destaque</small>
+            <h3 id="tourTitle">Recepção da instituição</h3>
+            <p id="tourText">Clique nos pontos interativos para explorar diferentes ambientes.</p>
+            <div class="tour-controls">
+              <span>↔ arraste</span>
+              <span>+ zoom</span>
+              <span>⛶ tela cheia</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">O problema</span>
+          <h2>Escolher uma instituição exige mais informação do que algumas fotos.</h2>
+          <p>
+            Famílias nem sempre conseguem visitar várias instituições presencialmente.
+            Distância, agenda e poucas informações dificultam uma decisão segura.
+          </p>
+        </div>
+
+        <div class="problem-grid">
+          <article class="card">
+            <div class="card-icon">⏱</div>
+            <h3>Falta de tempo</h3>
+            <p>Visitas presenciais exigem deslocamento, disponibilidade e compatibilidade de horários.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">⌖</div>
+            <h3>Distância</h3>
+            <p>Famílias podem estar longe da instituição ou ainda avaliando uma mudança de cidade.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">◎</div>
+            <h3>Pouca visibilidade</h3>
+            <p>Fotos isoladas e redes sociais raramente mostram a estrutura completa de uma escola.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="como-funciona">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Como funciona</span>
+          <h2>Da captação à experiência online em três etapas.</h2>
+          <p>
+            Produzimos o conteúdo, estruturamos a navegação e entregamos um tour pronto
+            para integrar ao site, compartilhar por link ou usar em campanhas de matrícula.
+          </p>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <span class="step-number">1</span>
+            <h3>Captamos os ambientes</h3>
+            <p>Registramos espaços estratégicos da instituição em 360°, com planejamento de percurso e pontos de interesse.</p>
+          </article>
+
+          <article class="step">
+            <span class="step-number">2</span>
+            <h3>Criamos a experiência</h3>
+            <p>Adicionamos navegação, textos, fotos, vídeos, informações institucionais e recursos interativos.</p>
+          </article>
+
+          <article class="step">
+            <span class="step-number">3</span>
+            <h3>Publicamos e integramos</h3>
+            <p>O tour fica disponível online e pode ser integrado ao site, campanhas, WhatsApp e outros canais.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section demo-section" id="demonstracao">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Demonstração</span>
+          <h2>Uma visita digital que mostra mais do que imagens estáticas.</h2>
+          <p>
+            Explore a demonstração abaixo arrastando com o mouse ou com o dedo.
+            O visualizador já está pronto para receber fotos 360° reais da instituição e conectar vários ambientes.
+          </p>
+        </div>
+
+        <div class="demo-wrap">
+          <div class="panorama-shell">
+            <div id="panorama" aria-label="Tour virtual 360 graus interativo"></div>
+            <span class="panorama-badge">● Demonstração 360° interativa</span>
+            <div class="panorama-help" aria-hidden="true">
+              <span>↔ Arraste para olhar ao redor</span>
+              <span>＋ Use o zoom</span>
+              <span>⛶ Tela cheia disponível</span>
+            </div>
+          </div>
+
+          <div class="demo-panel">
+            <article class="demo-item">
+              <strong>Navegação intuitiva</strong>
+              <p>Explore recepção, salas, laboratórios, quadras e demais ambientes.</p>
+            </article>
+
+            <article class="demo-item">
+              <strong>Pontos interativos</strong>
+              <p>Inclua textos, vídeos, fotos complementares e informações relevantes.</p>
+            </article>
+
+            <article class="demo-item">
+              <strong>Contato e conversão</strong>
+              <p>Direcione famílias para WhatsApp, agendamento ou solicitação de matrícula.</p>
+            </article>
+
+            <article class="demo-item">
+              <strong>Acesso em qualquer dispositivo</strong>
+              <p>Computador, tablet, smartphone e, quando aplicável, realidade virtual.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="beneficios">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Benefícios</span>
+          <h2>Mais transparência para as famílias. Mais eficiência para a instituição.</h2>
+        </div>
+
+        <div class="benefits-grid">
+          <article class="benefit-panel highlight">
+            <h3>Para instituições de ensino</h3>
+            <ul class="benefit-list">
+              <li>Fortalece a imagem institucional.</li>
+              <li>Moderniza o processo de apresentação.</li>
+              <li>Destaca estrutura e diferenciais.</li>
+              <li>Qualifica melhor as visitas presenciais.</li>
+              <li>Facilita o trabalho da equipe de atendimento.</li>
+              <li>Aumenta transparência e confiança.</li>
+            </ul>
+          </article>
+
+          <article class="benefit-panel">
+            <h3>Para famílias e responsáveis</h3>
+            <ul class="benefit-list">
+              <li>Conhecer a instituição sem sair de casa.</li>
+              <li>Avaliar a estrutura antes da visita presencial.</li>
+              <li>Economizar tempo e deslocamentos.</li>
+              <li>Comparar opções com mais informação.</li>
+              <li>Chegar à visita com dúvidas mais específicas.</li>
+              <li>Tomar decisões com mais segurança.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Para quem é</span>
+          <h2>Uma solução aplicável a diferentes níveis e formatos de ensino.</h2>
+        </div>
+
+        <div class="audiences">
+          <span class="audience-pill">Escolas particulares</span>
+          <span class="audience-pill">Escolas municipais</span>
+          <span class="audience-pill">Escolas estaduais</span>
+          <span class="audience-pill">Creches</span>
+          <span class="audience-pill">Educação infantil</span>
+          <span class="audience-pill">Escolas técnicas</span>
+          <span class="audience-pill">Instituições profissionalizantes</span>
+          <span class="audience-pill">Faculdades</span>
+          <span class="audience-pill">Universidades</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="planos">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Planos</span>
+          <h2>Escolha o nível de experiência ideal para sua instituição.</h2>
+          <p>
+            Os valores abaixo servem como referência comercial. Projetos com maior número
+            de ambientes, deslocamentos ou produções especiais podem exigir orçamento personalizado.
+          </p>
+        </div>
+
+        <div class="pricing">
+          <article class="price-card">
+            <h3>Essencial</h3>
+            <p class="desc">Para instituições que querem dar o primeiro passo com uma apresentação 360° profissional.</p>
+            <div class="price">R$ 4.900<small>valor de implantação</small></div>
+
+            <ul class="price-features">
+              <li>Até 15 ambientes em 360°</li>
+              <li>Produção e edição das imagens</li>
+              <li>Navegação entre ambientes</li>
+              <li>Identidade visual da instituição</li>
+              <li>Botão para WhatsApp</li>
+              <li>Link exclusivo</li>
+              <li>Integração ao site</li>
+              <li>12 meses de hospedagem</li>
+            </ul>
+
+            <a class="btn btn-secondary" href="#contato">Quero esse plano</a>
+          </article>
+
+          <article class="price-card">
+            <h3>Profissional</h3>
+            <p class="desc">Para escolas que querem transformar o tour em uma verdadeira experiência institucional.</p>
+            <div class="price">R$ 6.900<small>valor de implantação</small></div>
+
+            <ul class="price-features">
+              <li>Até 25 ambientes em 360°</li>
+              <li>Tudo do plano Essencial</li>
+              <li>Mapa interativo</li>
+              <li>Vídeos e fotos complementares</li>
+              <li>Equipe gestora e projeto pedagógico</li>
+              <li>Agendamento de visita</li>
+              <li>Download de material institucional</li>
+              <li>Personalização visual avançada</li>
+            </ul>
+
+            <a class="btn btn-primary" href="#contato">Quero esse plano</a>
+          </article>
+
+          <article class="price-card featured">
+            <span class="price-badge">Mais completo</span>
+            <h3>Premium</h3>
+            <p class="desc">O plano mais completo, para instituições que desejam uma apresentação digital de alto impacto.</p>
+            <div class="price">R$ 7.900<small>a partir de</small></div>
+
+            <ul class="price-features">
+              <li>Tour virtual 360° completo</li>
+              <li>Até 30 ambientes</li>
+              <li>Mapa e conteúdos interativos</li>
+              <li>Landing page exclusiva</li>
+              <li>Captação aérea com drone, quando aplicável</li>
+              <li>Fotos e vídeos integrados</li>
+              <li>Recursos avançados de apresentação</li>
+              <li>12 meses de hospedagem e suporte</li>
+            </ul>
+
+            <a class="btn btn-primary" href="#contato">Quero esse plano</a>
+          </article>
+        </div>
+
+        <div class="renewal">
+          Renovação anual de hospedagem, suporte e manutenção a partir de <strong>R$ 1.200/ano</strong>.
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight" id="faq">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Dúvidas frequentes</span>
+          <h2>Informações objetivas antes de começar.</h2>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>O tour funciona no celular?</summary>
+            <p>Sim. A experiência pode ser acessada por smartphone, tablet e computador diretamente pelo navegador.</p>
+          </details>
+
+          <details>
+            <summary>É possível integrar o tour ao site da escola?</summary>
+            <p>Sim. O tour pode ser incorporado ao site existente ou disponibilizado por meio de um link exclusivo.</p>
+          </details>
+
+          <details>
+            <summary>Quantos ambientes podem ser incluídos?</summary>
+            <p>Isso depende do plano contratado. Ambientes adicionais também podem ser incluídos mediante orçamento.</p>
+          </details>
+
+          <details>
+            <summary>O conteúdo pode ser atualizado depois?</summary>
+            <p>Sim. Atualizações, novos ambientes e alterações podem ser contratadas conforme a necessidade da instituição.</p>
+          </details>
+
+          <details>
+            <summary>É possível adicionar vídeos, fotos e informações em cada ambiente?</summary>
+            <p>Sim. O projeto pode incluir textos, fotos complementares, vídeos, links, documentos e outros conteúdos institucionais.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contato">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <h2>Sua escola está pronta para abrir as portas online?</h2>
+            <p>
+              Apresente estrutura, ambientes e diferenciais de forma imersiva,
+              acessível e disponível a qualquer hora.
+            </p>
+          </div>
+
+          <!-- TROQUE O NÚMERO ABAIXO PELO SEU WHATSAPP COM DDI + DDD + NÚMERO -->
+          <a
+            class="btn"
+            href="https://wa.me/5500000000000?text=Olá!%20Gostaria%20de%20conhecer%20melhor%20o%20projeto%20de%20tour%20virtual%20360°%20para%20instituições%20de%20ensino."
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Falar pelo WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="brand">
+        <span class="brand-mark">360°</span>
+        <span>SuaMarca 360</span>
+      </div>
+
+      <p class="footer-note">
+        Tours virtuais 360° para instituições de ensino. Transparência, tecnologia e uma nova forma de aproximar escolas e famílias.
+      </p>
+
+      <span>© <span id="year"></span> SuaMarca 360</span>
+    </div>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.js"></script>
+
+  <script>
+
+    // TOUR VIRTUAL 360°
+    // A demonstração usa uma imagem pública oficial do Pannellum.
+    // Para usar sua própria foto 360°, troque o valor de "panorama" por:
+    // "imagens/recepcao-360.jpg"
+    //
+    // Para criar várias cenas conectadas, adicione novas entradas dentro de "scenes"
+    // e use hotspots do tipo "scene" apontando para o respectivo "sceneId".
+
+    const panoramaViewer = pannellum.viewer("panorama", {
+      default: {
+        firstScene: "demo",
+        sceneFadeDuration: 700,
+        autoLoad: true,
+        showControls: true,
+        keyboardZoom: true,
+        mouseZoom: true
+      },
+
+      scenes: {
+        demo: {
+          title: "Demonstração de ambiente 360°",
+          author: "Imagem demonstrativa oficial do Pannellum",
+          type: "equirectangular",
+          panorama: "https://pannellum.org/images/bma-1.jpg",
+          hfov: 105,
+          pitch: 2,
+          yaw: 0,
+          hotSpots: [
+            {
+              pitch: 2,
+              yaw: 28,
+              type: "info",
+              text: "Aqui você pode inserir informações sobre o ambiente, vídeos, links ou diferenciais da instituição."
+            }
+          ]
+        }
+
+        /*
+        EXEMPLO DE SEGUNDA CENA:
+
+        ,salaAula: {
+          title: "Sala de aula",
+          type: "equirectangular",
+          panorama: "imagens/sala-aula-360.jpg",
+          hotSpots: [
+            {
+              pitch: -2,
+              yaw: 145,
+              type: "scene",
+              text: "Voltar para a recepção",
+              sceneId: "demo"
+            }
+          ]
+        }
+        */
+      }
+    });
+
+    // Corrige o tamanho do viewer quando a janela muda de tamanho
+    // ou quando a orientação do celular é alterada.
+    function resizePanorama() {
+      if (panoramaViewer && typeof panoramaViewer.resize === "function") {
+        panoramaViewer.resize();
+      }
+    }
+
+    window.addEventListener("resize", resizePanorama);
+    window.addEventListener("orientationchange", () => {
+      setTimeout(resizePanorama, 250);
+    });
+
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "✕" : "☰";
+    });
+
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    const tourTitle = document.getElementById("tourTitle");
+    const tourText = document.getElementById("tourText");
+
+    document.querySelectorAll(".hotspot").forEach((button) => {
+      button.addEventListener("click", () => {
+        tourTitle.textContent = button.dataset.title;
+        tourText.textContent = button.dataset.text;
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
